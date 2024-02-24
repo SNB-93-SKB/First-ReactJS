@@ -17,6 +17,16 @@ export default  function Produits() {
         const NewProduits=produits.filter(p=>p.id!=produit.id);
         setProduits(NewProduits);
     }
+    
+    const handleCheckProduit= (produit)=>{
+        const NewProduits=produits.map(p=>{
+            if(p.id==produit.id){
+                p.checked=!p.checked;
+            }
+            return p;
+        })
+        setProduits(NewProduits);
+    }
   return (
     <div className='p-1 m-1'>
     <div className='row'>
@@ -36,13 +46,17 @@ export default  function Produits() {
                 <td>{produit.name}</td>
                 <td>{produit.prix}</td>
                 <td>
-                <button className='btn btn-outline-sucess'>
-                <FontAwesomeIcon icon={produit.checked?faCheckCircle:faCircle}></FontAwesomeIcon>
+                <button onClick={()=>handleCheckProduit(produit)} 
+                className='btn btn-outline-sucess'>
+                <FontAwesomeIcon  icon={produit.checked?faCheckCircle:faCircle}>
+
+                </FontAwesomeIcon>
                     </button>  
                 </td>
 
                 <td>
-                <button onClick={()=>handleDeleteProduit(produit)} className='btn btn-danger'>
+                <button onClick={()=>handleDeleteProduit(produit)} 
+                className='btn btn-danger'>
                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
                     </button>  
                 </td>
