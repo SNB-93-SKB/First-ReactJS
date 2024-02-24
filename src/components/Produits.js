@@ -1,4 +1,4 @@
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faCircle, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 
@@ -12,7 +12,11 @@ export default  function Produits() {
         {id:6, name:'poison', prix:1000, checked:false},
         {id:7, name:'poivrons', prix:500, checked:true},
         {id:8,name:'gommebo',prix:100,checked:true},
-    ])
+    ]);
+    const handleDeleteProduit=(produit)=>{
+        const NewProduits=produits.filter(p=>p.id!=produit.id);
+        setProduits(NewProduits);
+    }
   return (
     <div className='p-1 m-1'>
     <div className='row'>
@@ -27,13 +31,19 @@ export default  function Produits() {
         </thead>
         <tbody>
             {produits.map(produit=>(
-             <tr>
+             <tr key={produit.id}>
                 <td>{produit.id}</td>
                 <td>{produit.name}</td>
                 <td>{produit.prix}</td>
                 <td>
                 <button className='btn btn-outline-sucess'>
-                <FontAwesomeIcon icon={faCheckCircle}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={produit.checked?faCheckCircle:faCircle}></FontAwesomeIcon>
+                    </button>  
+                </td>
+
+                <td>
+                <button onClick={()=>handleDeleteProduit(produit)} className='btn btn-danger'>
+                <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
                     </button>  
                 </td>
              </tr>   
